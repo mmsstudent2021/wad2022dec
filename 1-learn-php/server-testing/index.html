@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h4>Register Form</h4>
+    <form action="server.php?nick_name=ko htet" method="post" enctype="multipart/form-data">
+      <input type="text" name="your_name" placeholder="Your Name" />
+
+      <br />
+      <br />
+
+      <input type="email" name="your_email" placeholder="Your Email" />
+
+      <br />
+      <br />
+
+      <div class="">
+        <label for="">Gender</label>
+
+        <input type="radio" name="gender" value="male" id="male" />
+        <label for="male">Male</label>
+
+        <input type="radio" name="gender" value="female" id="female" />
+        <label for="female">Female</label>
+      </div>
+
+      <br />
+      <br />
+
+      <div class="">
+        <label for="">Skill</label>
+
+        <input type="checkbox" name="skill[]" value="html" id="html" />
+        <label for="html">html</label>
+
+        <input type="checkbox" name="skill[]" value="css" id="css" />
+        <label for="css">css</label>
+
+        <input type="checkbox" name="skill[]" value="js" id="js" />
+        <label for="js">js</label>
+
+        <input type="checkbox" name="skill[]" value="php" id="php" />
+        <label for="php">php</label>
+      </div>
+
+      <br />
+      <br />
+
+      <label for="">Nationality</label>
+
+      <select name="nationality" id="">
+        <option value="mm">Myanmar</option>
+        <option value="cn">China</option>
+        <option value="kr">Korea</option>
+        <option value="jp">Japan</option>
+      </select>
+
+      <br />
+      <br />
+
+      <label for="">Photo</label>
+
+      <input type="file" name="your_photo" accept="image/jpeg,image/png" />
+
+      <br>
+      <br>
+      <label for="">attachment</label>
+      <input type="file" name="attachment[]" multiple>
+
+      <br />
+      <br />
+      <button>Submit</button>
+    </form>
+
+    <!-- <form action="https://google.com/search" method="get">
+      <input type="text" name="q" placeholder="google search" />
+      <button>Search</button>
+    </form> -->
+  </body>
+</html>
