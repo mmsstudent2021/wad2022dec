@@ -27,7 +27,8 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
-                            <th>Money</th>
+                            <th class=" text-end">Money</th>
+                            <th>Controls</th>
                             <th>Create At</th>
                         </tr>
                     </thead>
@@ -36,7 +37,17 @@
                             <tr class=" align-middle">
                                 <td><?= $row["id"] ?></td>
                                 <td><?= $row["name"] ?></td>
-                                <td><?= $row["money"] ?></td>
+                                <td class=" text-end"><?= $row["money"] ?></td>
+                                <td>
+
+                                    <a href="./list-update.php?id=<?= $row['id']; ?>" class=" btn btn-primary">Update</a>
+                                    <form class=" d-inline-block" action="./list-delete.php" method="post">
+                                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                        <button onclick="return confirm('Are U sure to Delete?')" class=" btn btn-danger">Delete</button>
+                                    </form>
+
+
+                                </td>
                                 <td>
                                     <p class=" mb-0 small">
                                         <i class=" bi bi-calendar"></i>
@@ -53,9 +64,10 @@
                     <tfoot>
                         <tr>
                             <td colspan="2">Total</td>
-                            <td colspan="2">
+                            <td colspan="" class=" text-end">
                                 <?= mysqli_fetch_assoc($totalQuery)['total'] ?>
                             </td>
+                            <td colspan="2"></td>
                         </tr>
                     </tfoot>
                 </table>
