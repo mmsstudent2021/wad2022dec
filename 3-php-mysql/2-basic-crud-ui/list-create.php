@@ -7,6 +7,7 @@
                 <h3>Create List</h3>
                 <?php 
                 
+
                 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
                     $name = $_POST["name"];

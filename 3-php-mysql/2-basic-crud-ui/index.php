@@ -5,7 +5,13 @@
         <div class="col-12">
             <button class=" btn btn-primary">Testing</button>
 
-            <?php echo url("list/index.php"); ?>
+            <?php
+
+            dd($_SERVER);
+
+            echo url("list/index.php");
+
+            ?>
         </div>
     </div>
 </div>

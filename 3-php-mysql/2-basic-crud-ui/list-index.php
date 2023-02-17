@@ -4,13 +4,15 @@
     <div class="row">
         <div class="col-12 col-lg-12">
             <div class=" border rounded p-5 m-5">
-                <?php 
-                
-                if(!empty($_SESSION['status'])){
+                <?php
+
+
+
+                if (!empty($_SESSION['status'])) {
                     echo alert($_SESSION["status"]["message"]);
                     $_SESSION["status"] = null;
                 }
-                
+
                 ?>
                 <h3 class=" mb-3">အကြွေး ပေးရမည့်လူများ</h3>
                 <?php
@@ -43,11 +45,11 @@
                         <form action="" method="get">
                             <div class=" input-group">
                                 <input type="text" name="q" value="<?php if (isset($_GET['q'])) : ?> <?= $_GET["q"] ?> <?php endif; ?>" class=" form-control">
-                                    <?php if (isset($_GET['q'])) : ?>
-                                         <a href="./list-index.php" class=" btn btn-danger">
-                                            <i class=" bi bi-x"></i>
-                                         </a> 
-                                    <?php endif; ?>
+                                <?php if (isset($_GET['q'])) : ?>
+                                    <a href="./list-index.php" class=" btn btn-danger">
+                                        <i class=" bi bi-x"></i>
+                                    </a>
+                                <?php endif; ?>
                                 <button class=" btn btn-primary">Search</button>
                             </div>
                         </form>
