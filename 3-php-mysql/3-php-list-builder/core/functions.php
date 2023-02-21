@@ -46,3 +46,17 @@ function controller(string $controllerName): void
     // dynamic fun call
     call_user_func($controllerNameArray[1]);
 }
+
+
+function route(string $path,array $queries = null):string {
+    $url = url($path);
+    if(!is_null($queries)){
+        $url .= "?".http_build_query($queries);
+        
+    }
+    return $url;
+}
+
+function redirect($url):void{
+    header("Location:".$url);
+}
