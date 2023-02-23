@@ -11,11 +11,11 @@
         <div class=" row align-items-end">
             <div class=" col">
                 <label for="" class=" form-label">Your Name</label>
-                <input type="text" class=" form-control" name="name">
+                <input type="text" class=" form-control" name="name" required>
             </div>
             <div class=" col">
                 <label for="" class=" form-label">Money Amount</label>
-                <input type="number" class=" form-control" name="money">
+                <input type="number" class=" form-control" name="money" required>
             </div>
             <div class=" col">
                 <button class=" btn btn-lg btn-primary w-100 ">Add List</button>

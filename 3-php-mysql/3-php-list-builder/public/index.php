@@ -9,49 +9,48 @@ require_once "../index.php";
 // }else{}
 
 
-$uri = $_SERVER["REQUEST_URI"];
-$uriArr = parse_url($uri);
-$path = $uriArr["path"];
-
-switch ($path) {
-
-    case "/":
-        view("home", ["myName" => "hein htet zan", "myAge" => 28]);
-        break;
-
-    case "/about-us":
-        view("about");
-        break;
 
 
-    case "/list":
-        controller("list@index");
-        break;
+// switch ($path) {
 
-    case "/list-create":
-        controller("list@create");
-        break;
+//     case "/":
+//         view("home", ["m`yName" => "hein htet zan", "myAge" => 28]);
+//         break;
 
-        // case "/list-store" && $_SERVER["REQUEST_METHOD"] === "POST":
-    case "/list-store":
-        controller("list@store");
-        break;
+//     case "/about-us":
+//         view("about");
+//         break;
 
-    case "/list-delete":
-        controller("list@delete");
-        break;
 
-    case "/list-edit":
-        controller("list@edit");
-        break;
+//     case "/list":
+//         controller("list@index");
+//         break;
 
-    case "/list-update":
-        controller("list@update");
-        break;
+//     case "/list-create":
+//         controller("list@create");
+//         break;
 
-        // for all unknown route
-    default:
-        view("not-found");
-}
+//         // case "/list-store" && $_SERVER["REQUEST_METHOD"] === "POST":
+//     case "/list-store":
+//         controller("list@store");
+//         break;
+
+//     case "/list-delete":
+//         controller("list@delete");
+//         break;
+
+//     case "/list-edit":
+//         controller("list@edit");
+//         break;
+
+//     case "/list-update":
+//         controller("list@update");
+//         break;
+
+//         // for all unknown route
+//     default:
+//         view("not-found");
+// }
+
 
 // dd($_SERVER);

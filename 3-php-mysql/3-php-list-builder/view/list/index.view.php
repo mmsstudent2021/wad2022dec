@@ -4,6 +4,17 @@
 
 <div class=" d-flex justify-content-between mb-3">
     <a href="<?= route('list-create') ?>" class=" btn btn-outline-primary">Create New</a>
+    <form action="" method="get">
+        <div class=" input-group">
+            <input type="text" name="q" value="<?php if (isset($_GET['q'])) : ?> <?= $_GET["q"] ?> <?php endif; ?>" class=" form-control">
+            <?php if (isset($_GET['q'])) : ?>
+                <a href="<?= route("list") ?>" class=" btn btn-danger">
+                    Del
+                </a>
+            <?php endif; ?>
+            <button class=" btn btn-primary">Search</button>
+        </div>
+    </form>
 </div>
 
 <table class=" table table-bordered">
@@ -33,9 +44,11 @@
                     <a href="<?= route("list-edit", ["id" => $list['id']]) ?>" class=" btn btn-sm btn-outline-info">
                         Edit
                     </a>
-                    <a href="<?= route("list-delete", ["id" => $list['id']]) ?>" class=" btn btn-sm btn-outline-danger">
-                        Delete
-                    </a>
+                    <form class=" d-inline-block" action="<?= route("list-delete") ?>" method="post">
+                        <input type="hidden" name="id" value="<?= $list['id'] ?>">
+                        <input type="hidden" name="_method" value="delete">
+                        <button class=" btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
                 </td>
                 <td>
                     <?= $list['created_at'] ?>

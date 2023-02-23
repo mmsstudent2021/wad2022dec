@@ -3,13 +3,11 @@
 function index()
 {
     $sql = "SELECT * FROM my";
-    $query = mysqli_query($GLOBALS["conn"], $sql);
-    $lists = [];
-    while ($row = mysqli_fetch_assoc($query)) {
-        $lists[] = $row;
+    if(!empty($_GET["q"])){
+        $q = $_GET["q"];
+        $sql .= " WHERE name LIKE '%$q%'";
     }
-
-    return view("list/index", ["lists" => $lists]);
+    return view("list/index", ["lists" => all($sql)]);
 }
 
 function create()
@@ -21,31 +19,32 @@ function store()
 {
     $name = $_POST["name"];
     $money = $_POST["money"];
-    $sql = "INSERT INTO my (name,money) VALUES ('$name',$money)";
-    $query = mysqli_query($GLOBALS["conn"], $sql);
+    $sql = "INSERT INTO my (namee,money) VALUES ('$name',$money)";
+    run($sql);
     redirect(route("list"));
 }
 
-function delete(){
-    $id = $_GET["id"];
+function delete()
+{
+    $id = $_POST["id"];
     $sql = "DELETE FROM my WHERE id=$id";
-    $query = mysqli_query($GLOBALS["conn"], $sql);
+    run($sql);
     redirect(route("list"));
 }
 
-function edit(){
+function edit()
+{
     $id = $_GET["id"];
     $sql = "SELECT * FROM my WHERE id=$id";
-    $query = mysqli_query($GLOBALS["conn"], $sql);
-    $list = mysqli_fetch_assoc($query);
-    return view("list/edit",["list" => $list]);
+    return view("list/edit", ["list" => first($sql)]);
 }
 
-function update(){
+function update()
+{
     $id = $_POST["id"];
     $name = $_POST["name"];
     $money = $_POST["money"];
     $sql = "UPDATE my SET name='$name',money=$money WHERE id=$id";
-    $query = mysqli_query($GLOBALS["conn"], $sql);
+    run($sql);
     redirect(route("list"));
 }

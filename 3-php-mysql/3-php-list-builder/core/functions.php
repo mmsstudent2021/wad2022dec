@@ -42,21 +42,77 @@ function controller(string $controllerName): void
     // string to array
     // list@index => ["list","index"];
     $controllerNameArray = explode("@", $controllerName);
-    require_once ControllerDir."/$controllerNameArray[0].controller.php";
+    require_once ControllerDir . "/$controllerNameArray[0].controller.php";
     // dynamic fun call
     call_user_func($controllerNameArray[1]);
 }
 
 
-function route(string $path,array $queries = null):string {
+function route(string $path, array $queries = null): string
+{
     $url = url($path);
-    if(!is_null($queries)){
-        $url .= "?".http_build_query($queries);
-        
+    if (!is_null($queries)) {
+        $url .= "?" . http_build_query($queries);
     }
     return $url;
 }
 
-function redirect($url):void{
-    header("Location:".$url);
+function redirect($url): void
+{
+    header("Location:" . $url);
 }
+
+function checkRequestMethod(string $methodName)
+{
+    $result = false;
+    $methodName = strtoupper($methodName);
+    $serverRequestMethod = $_SERVER["REQUEST_METHOD"];
+    if ($methodName === "POST" && $serverRequestMethod === "POST") {
+        $result = true;
+    } elseif ($methodName === "PUT" && $serverRequestMethod === "POST" && !empty($_POST["_method"]) && strtoupper($_POST["_method"]) === "PUT") {
+        $result = true;
+    } elseif ($methodName === "DELETE" && $serverRequestMethod === "POST" && !empty($_POST["_method"]) && strtoupper($_POST["_method"]) === "DELETE") {
+        $result = true;
+    }
+
+    return $result;
+}
+
+
+// database functions start
+
+function run(string $sql,bool $closeConnection = true): object|bool
+{
+    try{
+
+        $query = mysqli_query($GLOBALS["conn"],$sql);
+        if($closeConnection) mysqli_close($GLOBALS["conn"]);
+        return $query;
+        
+    }catch(Exception $e){
+        dd($e);
+    }
+}
+
+function all(string $sql):array{
+
+    $lists = [];
+
+    $query = run($sql);
+
+    while ($row = mysqli_fetch_assoc($query)) {
+        $lists[] = $row;
+    }
+
+    return $lists;
+}
+
+function first(string $sql):array{
+    $query = run($sql);
+    $list = mysqli_fetch_assoc($query);
+    return $list;
+}
+
+
+
+// database functions end
