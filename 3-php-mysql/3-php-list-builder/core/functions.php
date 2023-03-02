@@ -57,8 +57,9 @@ function route(string $path, array $queries = null): string
     return $url;
 }
 
-function redirect($url): void
+function redirect(string $url,string $message = null): void
 {
+    if(!is_null($message)) setSession($message);
     header("Location:" . $url);
 }
 
@@ -77,6 +78,30 @@ function checkRequestMethod(string $methodName)
 
     return $result;
 }
+
+function alert(string $message, string $color = "success"):string
+{
+    return "<div class=' alert alert-$color'>$message</div>";
+}
+
+// session function start
+function setSession(string $message, string $key = "message"):void{
+    // $_SESSION[key] = value
+    $_SESSION[$key] = $message;
+
+}
+
+function hasSession(string $key = "message"):bool{
+    if(!empty($_SESSION[$key])) return true;
+    return false;
+}
+
+function showSession(string $key = "message"):string {
+    $message = $_SESSION[$key];
+    unset($_SESSION[$key]);
+    return $message;
+}
+// session function end
 
 
 // database functions start

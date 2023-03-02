@@ -19,9 +19,9 @@ function store()
 {
     $name = $_POST["name"];
     $money = $_POST["money"];
-    $sql = "INSERT INTO my (namee,money) VALUES ('$name',$money)";
+    $sql = "INSERT INTO my (name,money) VALUES ('$name',$money)";
     run($sql);
-    redirect(route("list"));
+    redirect(route("list"),"List create successfully");
 }
 
 function delete()
@@ -29,7 +29,8 @@ function delete()
     $id = $_POST["id"];
     $sql = "DELETE FROM my WHERE id=$id";
     run($sql);
-    redirect(route("list"));
+
+    redirect(route("list"),"List delete successfully");
 }
 
 function edit()
@@ -46,5 +47,7 @@ function update()
     $money = $_POST["money"];
     $sql = "UPDATE my SET name='$name',money=$money WHERE id=$id";
     run($sql);
-    redirect(route("list"));
+    
+
+    redirect(route("list"),"List update successfully");
 }
