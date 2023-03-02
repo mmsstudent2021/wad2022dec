@@ -7,7 +7,22 @@ function index()
         $q = $_GET["q"];
         $sql .= " WHERE name LIKE '%$q%'";
     }
-    return view("list/index", ["lists" => all($sql)]);
+
+
+    // total ?
+    // limit = 10 (rows pre page)
+    // totalPage = total / limit
+
+    // currentPage = 3;
+    // offset = ( currentPage - 1 ) * limit
+
+    //SELECT * from my LIMIT 0,10 - page 1
+    //SELECT * from my LIMIT 10,10 - page 2
+    //SELECT * from my LIMIT 20,10 - page 3
+    //SELECT * from my LIMIT 30,10 - page 4
+
+
+    return view("list/index", ["lists" => paginate($sql)]);
 }
 
 function create()
@@ -30,7 +45,7 @@ function delete()
     $sql = "DELETE FROM my WHERE id=$id";
     run($sql);
 
-    redirect(route("list"),"List delete successfully");
+    redirect($_SERVER['HTTP_REFERER'],"List delete successfully");
 }
 
 function edit()
@@ -49,5 +64,5 @@ function update()
     run($sql);
     
 
-    redirect(route("list"),"List update successfully");
+    redirect($_SERVER['HTTP_REFERER'],"List update successfully");
 }

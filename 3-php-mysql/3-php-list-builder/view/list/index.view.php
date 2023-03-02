@@ -29,7 +29,7 @@
     </thead>
     <tbody>
 
-        <?php foreach ($lists as $list) : ?>
+        <?php foreach ($lists["data"] as $list) : ?>
             <tr>
                 <td>
                     <?= $list['id'] ?>
@@ -59,6 +59,9 @@
 
     </tbody>
 </table>
+<?= paginator($lists) ?>
+
+
 
 
 <?php require_once ViewDir . "/template/footer.php"; ?>
