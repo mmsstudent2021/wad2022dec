@@ -70,9 +70,9 @@ function checkRequestMethod(string $methodName)
     $serverRequestMethod = $_SERVER["REQUEST_METHOD"];
     if ($methodName === "POST" && $serverRequestMethod === "POST") {
         $result = true;
-    } elseif ($methodName === "PUT" && $serverRequestMethod === "POST" && !empty($_POST["_method"]) && strtoupper($_POST["_method"]) === "PUT") {
+    } elseif ($methodName === "PUT" && ( $serverRequestMethod === "PUT" || ($serverRequestMethod === "POST" && !empty($_POST["_method"]) && strtoupper($_POST["_method"]) === "PUT"))) {
         $result = true;
-    } elseif ($methodName === "DELETE" && $serverRequestMethod === "POST" && !empty($_POST["_method"]) && strtoupper($_POST["_method"]) === "DELETE") {
+    } elseif ($methodName === "DELETE" && ( $serverRequestMethod === "DELETE" || ($serverRequestMethod === "POST" && !empty($_POST["_method"]) && strtoupper($_POST["_method"]) === "DELETE"))) {
         $result = true;
     }
 
@@ -109,6 +109,17 @@ function paginator($lists)
 function logger(string $message, int $colorCode = 32): void
 {
     echo " \e[39m[LOG]" . " \e[{$colorCode}m" . $message . " \n";
+}
+
+
+function responseJson(mixed $data, int $status = 200): string
+{
+    header("Content-type:Application/json");
+    http_response_code($status);
+    if (is_array($data)) {
+        return print(json_encode($data));
+    }
+    return print(json_encode(["message" => $data]));
 }
 
 
@@ -222,7 +233,7 @@ function createTable(string $tableName,...$columns): void
     `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
     `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
     PRIMARY KEY (`id`)
-  ) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
+  ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
 
     run($sql);
     logger($tableName . " table create successfully");
