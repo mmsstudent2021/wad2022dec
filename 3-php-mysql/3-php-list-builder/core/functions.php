@@ -122,6 +122,22 @@ function responseJson(mixed $data, int $status = 200): string
     return print(json_encode(["message" => $data]));
 }
 
+function filter($str,bool $strip = false){
+    // $str = str_replace("script","",$str);
+    // $str = trim($str,"<></>");
+
+    if($strip){
+        $str = strip_tags($str);
+    }
+
+    $str = trim($str);
+    $str = htmlentities($str,ENT_QUOTES);
+    $str = stripslashes($str);
+    
+
+    return $str;
+}
+
 
 // session function start
 function setSession(string $message, string $key = "message"): void

@@ -9,6 +9,7 @@
 </head>
 <body>
 
-<div class="m-5">
+<div class="mx-5">
     
+<?php require_once ViewDir."/template/nav.php"; ?>
 <?php require_once ViewDir."/template/session-message.php"; ?>
