@@ -18,34 +18,36 @@ function create()
 function store()
 {
 
+    validationStart();
+
     if(empty(trim($_POST["name"]))){
-        dd("name is required");
+        setError("name","name is required");
     }else if(strlen($_POST['name']) < 3){
-        dd("name is too short");
+        setError("name","name is too short");
     }else if(strlen($_POST['name']) > 20){
-        dd("name is too long");
+        setError("name","name is too long");
     }else if(!preg_match("/^[a-zA-Z0-9 ]*$/",$_POST['name'])){
-        dd("name only allows number, char and space");
+        setError("name","name only allows number, char and space");
     }
 
     if(empty(trim($_POST["price"]))){
-        dd("price is required");
+        setError("price","price is required");
     }else if(!is_numeric($_POST['price'])){
-        dd("price must be number");
+        setError("price","price must be number");
     }else if($_POST['price'] < 100){
-        dd("price must be greater than 100");
+        setError("price","price must be greater than 100");
     }else if($_POST['price'] > 9999){
-        dd("price must be less than 9999");
+        setError("price","price must be less than 9999");
     }
 
     if(empty(trim($_POST["stock"]))){
-        dd("stock is required");
+        setError("stock","stock is required");
     }else if(!is_numeric($_POST['stock'])){
-        dd("stock must be number");
+        setError("stock","stock must be number");
     }else if($_POST['stock'] < 1){
-        dd("stock must be greater than 1");
+        setError("stock","stock must be greater than 1");
     }else if($_POST['stock'] > 100){
-        dd("stock must be less than 100");
+        setError("stock","stock must be less than 100");
     }
 
     // ["price" => "numeric,gt:100,lt:9999"]
@@ -53,7 +55,11 @@ function store()
     // $price = $_POST["price"];
     // $stock = $_POST["stock"];
 
-    dd("Data ready");
+    validationEnd();
+
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+    $stock = $_POST['stock'];
 
     run("INSERT INTO inventories (name,price,stock) VALUES ('$name',$price,$stock)");
     return redirect(route("inventory"),"Item create successfully");
@@ -65,7 +71,7 @@ function delete()
     $sql = "DELETE FROM inventories WHERE id=$id";
     run($sql);
 
-    return redirect($_SERVER['HTTP_REFERER'],"Item delete successfully");
+    return redirectBack("Item delete successfully");
 }
 
 function edit()

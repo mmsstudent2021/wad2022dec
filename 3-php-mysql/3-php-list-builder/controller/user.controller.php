@@ -15,6 +15,35 @@ function index()
 function store()
 {
 
+    validationStart();
+
+    if(empty($_POST["name"])){
+        setError("name","name is required");
+    }else if(strlen($_POST['name']) < 3){
+        setError("name","name is too short");
+    }else if(strlen($_POST['name']) > 20){
+        setError("name","name is too long");
+    }else if(!preg_match("/^[a-zA-Z0-9 ]*$/",$_POST['name'])){
+        setError("name","name only allows number, char and space");
+    }
+
+    if(empty($_POST["email"])){
+        setError("email","email is required");
+    }else if(strlen($_POST['email']) < 3){
+        setError("email","email is too short");
+    }else if(strlen($_POST['email']) > 20){
+        setError("email","email is too long");
+    }else if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)){
+        setError("email","input must email");
+    }
+
+    if(empty($_POST["gender"])){
+        setError("gender","gender is required");
+    }else if(!in_array($_POST['gender'],['male','female'])){
+        setError("gender","gender must be male or female");
+    }
+
+    validationEnd(true);
     $name = $_POST["name"];
     $email = $_POST["email"];
     $gender = $_POST["gender"];

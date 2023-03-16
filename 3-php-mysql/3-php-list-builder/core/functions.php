@@ -63,6 +63,10 @@ function redirect(string $url, string $message = null): void
     header("Location:" . $url);
 }
 
+function redirectBack(string $message = null):void{
+    redirect($_SERVER['HTTP_REFERER'],$message);
+}
+
 function checkRequestMethod(string $methodName)
 {
     $result = false;
@@ -138,6 +142,64 @@ function filter($str,bool $strip = false){
     return $str;
 }
 
+// validation function start
+
+function setError(string $key,string $message): void
+{
+
+    $_SESSION["error"][$key] = $message;
+}
+
+function hasError(string $key): bool
+{
+    if (!empty($_SESSION["error"][$key])) return true;
+    return false;
+}
+
+function showError(string $key): string
+{
+    $message = $_SESSION["error"][$key];
+    unset($_SESSION["error"][$key]);
+    return $message;
+}
+
+function old(string $key):string|null{
+    if(isset($_SESSION['old'][$key])){
+        $data = $_SESSION["old"][$key];
+        unset($_SESSION["old"][$key]);
+        return $data;
+    }
+    return null;
+}
+
+function validationStart():void{
+    unset($_SESSION['old']);
+    unset($_SESSION['error']);
+    $_SESSION["old"] = $_POST;
+}
+
+function validationEnd( bool $isApi = false ):void{
+    if(hasSession("error")){
+        if($isApi){
+            responseJson([
+                "status" => false,
+                "errors" => showSession('error')
+            ]);
+        }else{
+            redirectBack();
+        }
+
+        die();
+
+        
+    }else{
+        unset($_SESSION['old']);
+    }
+
+}
+
+// validation function end
+
 
 // session function start
 function setSession(string $message, string $key = "message"): void
@@ -152,7 +214,7 @@ function hasSession(string $key = "message"): bool
     return false;
 }
 
-function showSession(string $key = "message"): string
+function showSession(string $key = "message"): string|array
 {
     $message = $_SESSION[$key];
     unset($_SESSION[$key]);
