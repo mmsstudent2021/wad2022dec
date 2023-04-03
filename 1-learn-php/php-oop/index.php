@@ -62,15 +62,42 @@ require_once "./autoload.php";
 // ]);
 
 
-$txt = new FileWriter("name.txt");
+// $txt = new FileWriter("name.txt");
 
-$txt->write("a \n");
-$txt->write("b \n");
-$txt->write("c \n");
-$txt->write("d \n");
+// $txt->write("a \n");
+// $txt->write("b \n");
+// $txt->write("c \n");
+// $txt->write("d \n");
 
-$html = new FileWriter("home.html");
-$html->write("<h1>Min Ga Lar Par</h1>");
+// $html = new FileWriter("home.html");
+// $html->write("<h1>Min Ga Lar Par</h1>");
 
-$css = new FileWriter("style.css");
-$css->write("body{color:red}");
+// $css = new FileWriter("style.css");
+// $css->write("body{color:red}");
+
+
+// print_r(Three::$a);
+// echo "\n";
+// print_r(Three::b());
+// echo "\n";
+// print_r(Three::c());
+
+// $one = new One;
+
+// print_r($one->a()->b()->c()->a()->d());
+
+// $users = new QueryBuilder("users");
+// // echo $users->where("gender","=","female")->where("age",">",18)->sql();
+// echo $users->where("gender","=","female")->where("age",">",18)->orderBy("id")->orderBy("name","DESC")->sql();
+// echo "\n";
+
+// $lists = new QueryBuilder("lists");
+// echo $lists->where("id","=",1)->orWhere("id","=",3)->orWhere("id","=",7)->sql();
+
+
+// $me = new Person;
+// $me->skinColor = "brown";
+// var_dump($me->skinColor);
+// $me->setFbPassword("mingalarpar");
+// var_dump($me->getFbPassword());
+
