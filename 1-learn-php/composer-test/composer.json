@@ -1,0 +1,12 @@
+{
+    "require": {
+        "fakerphp/faker": "^1.21",
+        "chillerlan/php-qrcode": "^4.3",
+        "monolog/monolog": "^3.3"
+    },
+    "autoload":{
+        "psr-4":{
+            "App\\" : "src"
+        }
+    }
+}
